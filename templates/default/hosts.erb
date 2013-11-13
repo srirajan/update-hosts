@@ -1,0 +1,9 @@
+127.0.0.1   localhost
+8.8.8.8     google_dns
+
+
+<% @hosts.each do |node| %>
+<%= node['ip'] %> <%= node['hostname'] %> <%= node['fqdn']%>
+<% end %>
+
+8.8.8.8    dns
