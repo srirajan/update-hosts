@@ -8,7 +8,9 @@
 #
 
 hosts = partial_search(:node, '*:*',
-   :keys => { 'fqdn' => [ 'fqdn' ],
+   :keys => {
+              'domain' => ['domain'],
+              'fqdn' => [ 'fqdn' ],
               'hostname'   => [ 'hostname' ],
               'ip'   => [ 'ipaddress' ]
             })
@@ -21,4 +23,10 @@ template "/etc/hosts" do
   variables(
     :hosts => hosts
   )
+end
+
+# Add itself if missing
+hostsfile_entry node['ipaddress'] do
+  hostname node['hostname']
+  action    :create_if_missing
 end
